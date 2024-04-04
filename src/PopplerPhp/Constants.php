@@ -17,6 +17,7 @@ abstract class Constants {
     const PDF_FONTS = 'pdffonts';
     const PDF_IMAGES = 'pdfimages';
     const PDF_INFO = 'pdfinfo';
+    const PDF_SIGNATURE = 'pdfsig';
     const PDF_SEPARATE = 'pdfseparate';
     const PDF_TO_CAIRO = 'pdftocairo';
     const PDF_TO_HTML = 'pdftohtml';
@@ -96,9 +97,9 @@ abstract class Constants {
 
     //Directory Helpers
     const DS = DIRECTORY_SEPARATOR;
-    const BIN_DIR = 'ncjoes.poppler-php.bin_dir';
-    const OUTPUT_DIR = 'ncjoes.poppler-php.output_dir';
-    const OUTPUT_NAME = 'ncjoes.poppler-php.output_name';
+    const BIN_DIR = 'iternova.poppler-php.bin_dir';
+    const OUTPUT_DIR = 'iternova.poppler-php.output_dir';
+    const OUTPUT_NAME = 'iternova.poppler-php.output_name';
 
     const DEFAULT_OUTPUT_DIR = 'tests/results';
 
