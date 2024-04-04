@@ -1,19 +1,17 @@
 <?php
 
-namespace NcJoes\PopplerPhp;
+namespace Iternova\PopplerPhp;
 
 use Illuminate\Config\Repository;
-use NcJoes\PopplerPhp\Constants as C;
-use NcJoes\PopplerPhp\Exceptions\PopplerPhpException;
-use NcJoes\PopplerPhp\Helpers as H;
+use Iternova\PopplerPhp\Constants as C;
+use Iternova\PopplerPhp\Exceptions\PopplerPhpException;
+use Iternova\PopplerPhp\Helpers as H;
 
 /**
  * Class Config
- *
- * @package NcJoes\PopplerPhp
+ * @package Iternova\PopplerPhp
  */
-class Config
-{
+class Config {
     /**
      * @var Repository $instance
      */
@@ -25,18 +23,17 @@ class Config
      *
      * @return mixed
      */
-    public static function __callStatic($function, $arguments)
-    {
-        return call_user_func_array([static::getInstance(), $function], $arguments);
+    public static function __callStatic( $function, $arguments ) {
+        return call_user_func_array( [ static::getInstance(), $function ], $arguments );
     }
 
     /**
      * @return mixed
      */
-    public static function getInstance()
-    {
-        if (!(static::$instance instanceof Repository))
+    public static function getInstance() {
+        if ( !( static::$instance instanceof Repository ) ) {
             static::$instance = new Repository;
+        }
 
         return static::$instance;
     }
@@ -46,9 +43,8 @@ class Config
      *
      * @return bool
      */
-    public static function isKeySet($key)
-    {
-        return self::get($key, C::DFT) != C::DFT;
+    public static function isKeySet( $key ) {
+        return self::get( $key, C::DFT ) != C::DFT;
     }
 
     /**
@@ -57,28 +53,27 @@ class Config
      * @return mixed|string
      * @throws PopplerPhpException
      */
-    public static function setBinDirectory($dir)
-    {
-        $real_path = realpath($dir);
+    public static function setBinDirectory( $dir ) {
+        $real_path = realpath( $dir );
 
-        if ($real_path) {
-            $real_path = H::parseDirName($real_path);
-            self::set(C::BIN_DIR, $real_path);
+        if ( $real_path ) {
+            $real_path = H::parseDirName( $real_path );
+            self::set( C::BIN_DIR, $real_path );
 
             return $real_path;
         }
-        elseif ($dir == C::DFT) {
-            return self::setBinDirectory(self::getBinDirectory());
+
+        if ( $dir == C::DFT ) {
+            return self::setBinDirectory( self::getBinDirectory() );
         }
-        throw new PopplerPhpException("Poppler bin directory does not exist: ".$dir);
+        throw new PopplerPhpException( "Poppler bin directory does not exist: " . $dir );
     }
 
     /**
      * @return mixed
      */
-    public static function getBinDirectory()
-    {
-        $win = self::get(C::BIN_DIR, H::parseDirName(realpath(__DIR__.'/../../vendor/bin/poppler')));
+    public static function getBinDirectory() {
+        $win = self::get( C::BIN_DIR, H::parseDirName( realpath( __DIR__ . '/../../vendor/bin/poppler' ) ) );
 
         return PHP_OS === 'WINNT' ? $win : "";
     }
@@ -90,20 +85,20 @@ class Config
      * @return mixed|string
      * @throws PopplerPhpException
      */
-    public static function setOutputDirectory($dir, $new = false)
-    {
-        $real_path = $new ? $dir : realpath($dir);
+    public static function setOutputDirectory( $dir, $new = false ) {
+        $real_path = $new ? $dir : realpath( $dir );
 
-        if ($real_path) {
-            $real_path = H::parseDirName($real_path);
-            self::set(C::OUTPUT_DIR, $real_path);
+        if ( $real_path ) {
+            $real_path = H::parseDirName( $real_path );
+            self::set( C::OUTPUT_DIR, $real_path );
 
             return $real_path;
         }
-        elseif ($dir == C::DFT) {
-            return self::setOutputDirectory(self::getOutputDirectory());
+
+        if ( $dir == C::DFT ) {
+            return self::setOutputDirectory( self::getOutputDirectory() );
         }
-        throw new PopplerPhpException("Output directory does not exist: ".$dir);
+        throw new PopplerPhpException( "Output directory does not exist: " . $dir );
     }
 
     /**
@@ -111,11 +106,10 @@ class Config
      *
      * @return mixed
      */
-    public static function getOutputDirectory($default = null)
-    {
-        $check = is_dir($default);
-        $default = $check ? $default : H::parseDirName(C::DEFAULT_OUTPUT_DIR);
+    public static function getOutputDirectory( $default = null ) {
+        $check = is_dir( $default );
+        $default = $check ? $default : H::parseDirName( C::DEFAULT_OUTPUT_DIR );
 
-        return self::get(C::OUTPUT_DIR, realpath($default));
+        return self::get( C::OUTPUT_DIR, realpath( $default ) );
     }
 }

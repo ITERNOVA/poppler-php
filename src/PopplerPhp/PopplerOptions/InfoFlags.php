@@ -1,28 +1,25 @@
 <?php
 
-namespace NcJoes\PopplerPhp\PopplerOptions;
+namespace Iternova\PopplerPhp\PopplerOptions;
 
-use NcJoes\PopplerPhp\Constants as C;
+use Iternova\PopplerPhp\Constants as C;
 
 /**
  * Trait InfoFlags
- * @package NcJoes\PopplerPhp\PopplerOptions
+ * @package Iternova\PopplerPhp\PopplerOptions
  */
-trait InfoFlags
-{
+trait InfoFlags {
     /**
      * @return mixed
      */
-    public function setBox()
-    {
-        return $this->setFlag(C::_BOX);
+    public function setBox() {
+        return $this->setFlag( C::_BOX );
     }
 
     /**
      * @return array
      */
-    protected function infoFlags()
-    {
-        return [C::_BOX];
+    protected function infoFlags() {
+        return [ C::_BOX ];
     }
 }

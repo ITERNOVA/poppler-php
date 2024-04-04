@@ -1,26 +1,22 @@
 <?php
 /**
  * Poppler-PHP
- *
- * Author:  Chukwuemeka Nwobodo (jcnwobodo@gmail.com)
  * Date:    10/13/2016
  * Time:    2:17 AM
  **/
 
-namespace NcJoes\PopplerPhp;
+namespace Iternova\PopplerPhp;
 
-use NcJoes\PopplerPhp\Constants as C;
-use NcJoes\PopplerPhp\PopplerOptions\CairoOptions;
-use NcJoes\PopplerPhp\PopplerOptions\HelpFlags;
-use NcJoes\PopplerPhp\PopplerOptions\PageRangeOptions;
+use Iternova\PopplerPhp\Constants as C;
+use Iternova\PopplerPhp\PopplerOptions\CairoOptions;
+use Iternova\PopplerPhp\PopplerOptions\HelpFlags;
+use Iternova\PopplerPhp\PopplerOptions\PageRangeOptions;
 
 /**
  * Class PdfToCairo
- *
- * @package NcJoes\PopplerPhp
+ * @package Iternova\PopplerPhp
  */
-class PdfToCairo extends PopplerUtil
-{
+class PdfToCairo extends PopplerUtil {
     use CairoOptions;
     use PageRangeOptions;
     use HelpFlags;
@@ -35,20 +31,19 @@ class PdfToCairo extends PopplerUtil
      *
      * @param string $pdfFile
      * @param array $options
+     *
      * @throws Exceptions\PopplerPhpException
      */
-    public function __construct($pdfFile = '', array $options = [])
-    {
+    public function __construct( $pdfFile = '', array $options = [] ) {
         $this->binFile = C::PDF_TO_CAIRO;
 
-        return parent::__construct($pdfFile, $options);
+        return parent::__construct( $pdfFile, $options );
     }
 
     /**
      * @return array
      */
-    public function utilOptions()
-    {
+    public function utilOptions() {
         return array_merge(
             $this->cairoOptions(),
             $this->pageRangeOptions()
@@ -58,8 +53,7 @@ class PdfToCairo extends PopplerUtil
     /**
      * @return array
      */
-    public function utilFlags()
-    {
+    public function utilFlags() {
         return array_merge(
             $this->cairoFlags(),
             $this->pageRangeFlags(),
@@ -70,8 +64,7 @@ class PdfToCairo extends PopplerUtil
     /**
      * @return array
      */
-    public function utilOptionRules()
-    {
+    public function utilOptionRules() {
         return [
             'alt' => [],
         ];
@@ -80,8 +73,7 @@ class PdfToCairo extends PopplerUtil
     /**
      * @return array
      */
-    public function utilFlagRules()
-    {
+    public function utilFlagRules() {
         return [
             'alt' => [],
         ];
@@ -90,9 +82,8 @@ class PdfToCairo extends PopplerUtil
     /**
      * @return string
      */
-    public function generatePNG()
-    {
-        $this->setOutputFormat(C::_PNG);
+    public function generatePNG() {
+        $this->setOutputFormat( C::_PNG );
 
         return $this->generate();
     }
@@ -100,9 +91,8 @@ class PdfToCairo extends PopplerUtil
     /**
      * @return string
      */
-    public function generateJPG()
-    {
-        $this->setOutputFormat(C::_JPEG);
+    public function generateJPG() {
+        $this->setOutputFormat( C::_JPEG );
 
         return $this->generate();
     }
@@ -110,9 +100,8 @@ class PdfToCairo extends PopplerUtil
     /**
      * @return string
      */
-    public function generateTIFF()
-    {
-        $this->setOutputFormat(C::_TIFF);
+    public function generateTIFF() {
+        $this->setOutputFormat( C::_TIFF );
 
         return $this->generate();
     }
@@ -120,9 +109,8 @@ class PdfToCairo extends PopplerUtil
     /**
      * @return string
      */
-    public function generatePS()
-    {
-        $this->setOutputFormat(C::_PS);
+    public function generatePS() {
+        $this->setOutputFormat( C::_PS );
         $this->outputFileExtension = $this->outputExtension();
 
         return $this->generate();
@@ -131,9 +119,8 @@ class PdfToCairo extends PopplerUtil
     /**
      * @return string
      */
-    public function generateEPS()
-    {
-        $this->setOutputFormat(C::_EPS);
+    public function generateEPS() {
+        $this->setOutputFormat( C::_EPS );
         $this->outputFileExtension = $this->outputExtension();
 
         return $this->generate();
@@ -142,9 +129,8 @@ class PdfToCairo extends PopplerUtil
     /**
      * @return string
      */
-    public function generatePDF()
-    {
-        $this->setOutputFormat(C::_PDF);
+    public function generatePDF() {
+        $this->setOutputFormat( C::_PDF );
 
         return $this->generate();
     }
@@ -152,9 +138,8 @@ class PdfToCairo extends PopplerUtil
     /**
      * @return string
      */
-    public function generateSVG()
-    {
-        $this->setOutputFormat(C::_SVG);
+    public function generateSVG() {
+        $this->setOutputFormat( C::_SVG );
         $this->outputFileExtension = $this->outputExtension();
 
         return $this->generate();
@@ -163,42 +148,40 @@ class PdfToCairo extends PopplerUtil
     /**
      * @return string
      */
-    public function generate()
-    {
+    public function generate() {
         return $this->shellExec();
     }
 
     /**
      * @return string
      */
-    public function outputExtension()
-    {
+    public function outputExtension() {
         $dot = '.';
         $extension = null;
-        switch ($this->getOutputFormat()) {
+        switch ( $this->getOutputFormat() ) {
             case C::_PNG :
                 $extension = 'png';
-            break;
+                break;
             case C::_JPEG :
                 $extension = 'jpg';
-            break;
+                break;
             case C::_TIFF :
                 $extension = 'tiff';
-            break;
+                break;
             case C::_PS :
                 $extension = 'ps';
-            break;
+                break;
             case C::_EPS :
                 $extension = 'eps';
-            break;
+                break;
             case C::_PDF :
                 $extension = 'pdf';
-            break;
+                break;
             case C::_SVG :
                 $extension = 'svg';
-            break;
+                break;
         }
 
-        return $dot.$extension;
+        return $dot . $extension;
     }
 }

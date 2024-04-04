@@ -1,27 +1,24 @@
 <?php
 /**
  * Poppler-PHP
- *
- * Author:  Chukwuemeka Nwobodo (jcnwobodo@gmail.com)
  * Date:    10/13/2016
  * Time:    12:59 AM
  **/
 
-namespace NcJoes\PopplerPhp;
+namespace Iternova\PopplerPhp;
 
-use NcJoes\PopplerPhp\Constants as C;
-use NcJoes\PopplerPhp\PopplerOptions\ConsoleFlags;
-use NcJoes\PopplerPhp\PopplerOptions\CredentialOptions;
-use NcJoes\PopplerPhp\PopplerOptions\EncodingOptions;
-use NcJoes\PopplerPhp\PopplerOptions\HtmlOptions;
-use NcJoes\PopplerPhp\PopplerOptions\PageRangeOptions;
+use Iternova\PopplerPhp\Constants as C;
+use Iternova\PopplerPhp\PopplerOptions\ConsoleFlags;
+use Iternova\PopplerPhp\PopplerOptions\CredentialOptions;
+use Iternova\PopplerPhp\PopplerOptions\EncodingOptions;
+use Iternova\PopplerPhp\PopplerOptions\HtmlOptions;
+use Iternova\PopplerPhp\PopplerOptions\PageRangeOptions;
 
 /**
  * Class PdfToHtml
- * @package NcJoes\PopplerPhp
+ * @package Iternova\PopplerPhp
  */
-class PdfToHtml extends PopplerUtil
-{
+class PdfToHtml extends PopplerUtil {
     use PageRangeOptions;
     use ConsoleFlags;
     use HtmlOptions;
@@ -35,23 +32,23 @@ class PdfToHtml extends PopplerUtil
 
     /**
      * PdfToHtml constructor.
+     *
      * @param string $pdfFile
      * @param array $options
+     *
      * @throws Exceptions\PopplerPhpException
      */
-    public function __construct($pdfFile = '', array $options = [])
-    {
+    public function __construct( $pdfFile = '', array $options = [] ) {
         $this->binFile = C::PDF_TO_HTML;
-        $this->setFlag(C::_Q);
+        $this->setFlag( C::_Q );
 
-        return parent::__construct($pdfFile, $options);
+        return parent::__construct( $pdfFile, $options );
     }
 
     /**
      * @return array|mixed
      */
-    public function utilOptions()
-    {
+    public function utilOptions() {
         return array_merge(
             $this->pageRangeOptions(),
             $this->htmlOptions(),
@@ -63,8 +60,7 @@ class PdfToHtml extends PopplerUtil
     /**
      * @return array|mixed
      */
-    public function utilFlags()
-    {
+    public function utilFlags() {
         return array_merge(
             $this->allConsoleFlags(),
             $this->htmlFlags()
@@ -74,8 +70,7 @@ class PdfToHtml extends PopplerUtil
     /**
      * @return array|mixed
      */
-    public function utilOptionRules()
-    {
+    public function utilOptionRules() {
         return [
             'alt' => [],
         ];
@@ -84,8 +79,7 @@ class PdfToHtml extends PopplerUtil
     /**
      * @return array|mixed
      */
-    public function utilFlagRules()
-    {
+    public function utilFlagRules() {
         return [
             'alt' => [],
         ];
@@ -94,50 +88,45 @@ class PdfToHtml extends PopplerUtil
     /**
      * @return $this
      */
-    public function defaultEncoding()
-    {
+    public function defaultEncoding() {
         return $this;
     }
 
     /**
      * @return $this
      */
-    public function listEncodings()
-    {
+    public function listEncodings() {
         return $this;
     }
 
     /**
      * @return $this
      */
-    public function oddPagesOnly()
-    {
+    public function oddPagesOnly() {
         return $this;
     }
 
     /**
      * @return $this
      */
-    public function evenPagesOnly()
-    {
+    public function evenPagesOnly() {
         return $this;
     }
 
     /**
      * @return $this
      */
-    public function firstPageOnly()
-    {
+    public function firstPageOnly() {
         return $this;
     }
 
     /**
      * @param bool $regenerate
+     *
      * @return string
      */
-    public function generate($regenerate = false)
-    {
-        if (is_null($this->products) or $regenerate == true) {
+    public function generate( $regenerate = false ) {
+        if ( is_null( $this->products ) or $regenerate == true ) {
             $content = $this->shellExec();
 
             $this->products = $content;
@@ -149,8 +138,7 @@ class PdfToHtml extends PopplerUtil
     /**
      * @return mixed|string
      */
-    public function outputExtension()
-    {
+    public function outputExtension() {
         return '.html';
     }
 }
